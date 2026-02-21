@@ -1,73 +1,101 @@
-# Welcome to your Lovable project
+# LeadFlow CRM
 
-## Project info
+A modern, responsive Customer Relationship Management (CRM) dashboard built with React, Vite, and Supabase. LeadFlow CRM is designed to help teams track leads, manage notes, and schedule follow-ups efficiently with a beautiful, dark-mode ready interface.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![LeadFlow CRM Screenshot](public/placeholder.svg) *(Replace with actual screenshot)*
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Lead Management:** Create, view, update, and manage the statuses of prospective clients.
+- **Notes & Activity Tracking:** Keep detailed logs of interactions with each lead.
+- **Follow-up Scheduling:** Set reminders for future touchpoints.
+- **Analytics Dashboard:** Visualize your sales pipeline and conversion rates.
+- **Authentication & RLS:** Secure user login and data ownership using Supabase Auth and Row Level Security.
+- **Modern UI:** Built with Tailwind CSS and Radix UI primitives for a sleek, accessible, and responsive design.
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **Frontend Framework:** React 18 with TypeScript
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS + `shadcn/ui` components
+- **Routing:** React Router v6
+- **Data Fetching:** TanStack Query (React Query)
+- **Backend/Database:** Supabase (PostgreSQL + Auth)
+- **Icons:** Lucide React
 
-Changes made via Lovable will be committed automatically to this repo.
+## Local Development Setup
 
-**Use your preferred IDE**
+To get this project running locally on your machine, follow these steps:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- `npm` or `bun`
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 1. Clone the repository
 
-Follow these steps:
+```bash
+git clone https://github.com/YOUR_USERNAME/leadflow-crm.git
+cd leadflow-crm
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 2. Install Dependencies
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+npm install
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 3. Set up Environment Variables
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Create a `.env.local` file in the root directory and add your Supabase credentials:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_SUPABASE_PROJECT_ID=your_supabase_project_id
+```
+
+### 4. Database Setup (Supabase)
+
+This project requires a Supabase PostgreSQL database. You can find the database schema inside the `supabase/migrations/` folder. 
+
+If you want to quickly seed your database with 70 realistic sample leads, copy the contents of `supabase/seed.sql` and run it in your Supabase project's SQL Editor.
+
+### 5. Start the Development Server
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080` (or whichever port Vite assigns).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Project Structure
 
-**Use GitHub Codespaces**
+```text
+├── src/
+│   ├── components/      # Reusable UI components (shadcn ui, custom components)
+│   ├── contexts/        # React Context providers (e.g., AuthContext)
+│   ├── hooks/           # Custom React hooks
+│   ├── integrations/    # External service configurations (Supabase client)
+│   ├── lib/             # Utility functions
+│   ├── pages/           # Route-level components (Dashboard, Leads, Login)
+│   ├── App.tsx          # Main application component and routing
+│   └── main.tsx         # Entry point
+├── supabase/
+│   ├── migrations/      # Database schema and RLS policies
+│   └── seed.sql         # Sample data generation script
+└── .env                 # Environment variables
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Building for Production
 
-## What technologies are used for this project?
+To create a production-ready build:
 
-This project is built with:
+```bash
+npm run build
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This will generate a `dist` folder containing the optimized assets ready to be deployed to platforms like Vercel, Netlify, or AWS.
 
-## How can I deploy this project?
+## License
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project is open-source and available under the [MIT License](LICENSE).
