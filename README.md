@@ -138,7 +138,7 @@ VITE_SUPABASE_PROJECT_ID=your_supabase_project_id
 
 ### Database Setup
 
-The full database schema is located in `supabase/migrations/`. It defines:
+The full database schema is located in `src/Backend/migrations/`. It defines:
 
 - **`profiles`** — Stores user profile data, auto-created on signup via a database trigger.
 - **`leads`** — The core table for lead records (name, email, phone, company, source, status).
@@ -148,16 +148,16 @@ The full database schema is located in `supabase/migrations/`. It defines:
 **To set up the database:**
 
 1. Go to your [Supabase Dashboard](https://supabase.com/dashboard) → open your project → **SQL Editor**.
-2. Open the file `supabase/migrations/20260219115203_0cecf8f5-f2a5-4876-b926-b9f77651f0f0.sql`.
+2. Open the file `src/Backend/migrations/20260219115203_0cecf8f5-f2a5-4876-b926-b9f77651f0f0.sql`.
 3. Copy the entire contents and paste it into the SQL Editor.
 4. Click **Run** to create all tables, enums, triggers, and RLS policies.
 
 **To seed sample data (optional):**
 
-A seed script is provided at `supabase/seed.sql` that generates **70 realistic sample leads** along with notes and follow-ups. To use it:
+A seed script is provided at `src/Backend/seed.sql` that generates **70 realistic sample leads** along with notes and follow-ups. To use it:
 
 1. Open the SQL Editor in your Supabase Dashboard.
-2. Paste the contents of `supabase/seed.sql`.
+2. Paste the contents of `src/Backend/seed.sql`.
 3. Click **Run**.
 
 This will create a test user (`admin@test.com` / `password123`) and populate the database with diverse sample data for immediate testing.
@@ -177,53 +177,58 @@ The application will be available at **http://localhost:8080**.
 
 ```
 leadflow-crm/
-├── public/                  # Static assets (favicon, robots.txt)
-├── supabase/
-│   ├── config.toml          # Supabase CLI configuration
-│   ├── migrations/          # SQL migration files (schema + RLS policies)
-│   └── seed.sql             # Sample data generator (70 leads)
+├── public/                          # Static assets (favicon, robots.txt)
 ├── src/
-│   ├── components/
-│   │   ├── ui/              # shadcn/ui component library (Button, Card, Dialog, etc.)
-│   │   ├── AppLayout.tsx    # Sidebar navigation + main content wrapper
-│   │   ├── LeadDetailSheet.tsx   # Slide-out panel for viewing lead details
-│   │   ├── LeadFormDialog.tsx    # Modal form for creating/editing leads
-│   │   ├── NavLink.tsx      # Navigation link with active state
-│   │   └── ProtectedRoute.tsx    # Auth guard for protected pages
-│   ├── contexts/
-│   │   └── AuthContext.tsx  # React Context for authentication state
-│   ├── hooks/
-│   │   ├── useLeads.ts      # TanStack Query hooks for lead CRUD operations
-│   │   ├── useTheme.ts      # Dark/light mode toggle hook
-│   │   ├── use-mobile.tsx   # Mobile breakpoint detection hook
-│   │   └── use-toast.ts     # Toast notification hook
-│   ├── integrations/
-│   │   └── supabase/
-│   │       ├── client.ts    # Supabase client initialization
-│   │       └── types.ts     # Auto-generated TypeScript types for the database
-│   ├── lib/
-│   │   └── utils.ts         # Utility functions (cn, classnames helper)
-│   ├── pages/
-│   │   ├── Home.tsx         # Public landing page
-│   │   ├── Login.tsx        # Email/password login form
-│   │   ├── Register.tsx     # New user registration form
-│   │   ├── Dashboard.tsx    # Analytics overview with charts and KPIs
-│   │   ├── Leads.tsx        # Lead list with search, filter, and CRUD
-│   │   ├── Pipeline.tsx     # Kanban-style pipeline board
-│   │   ├── FollowUps.tsx    # Upcoming follow-up tasks
-│   │   └── NotFound.tsx     # 404 error page
-│   ├── App.tsx              # Root component with routing configuration
-│   ├── App.css              # Global styles
-│   ├── index.css            # Tailwind CSS imports and base styles
-│   └── main.tsx             # Application entry point
-├── .env                     # Environment variables (git-ignored)
-├── .gitignore               # Files and folders excluded from version control
-├── index.html               # HTML entry point
-├── package.json             # Dependencies and scripts
-├── tailwind.config.ts       # Tailwind CSS configuration
-├── tsconfig.json            # TypeScript configuration
-├── vite.config.ts           # Vite build configuration
-└── vitest.config.ts         # Vitest test runner configuration
+│   ├── Frontend/                    # 🎨 UI Layer — Visual Components & Pages
+│   │   ├── components/
+│   │   │   ├── ui/                  # shadcn/ui component library (Button, Card, etc.)
+│   │   │   ├── AppLayout.tsx        # Sidebar navigation + main content wrapper
+│   │   │   ├── LeadDetailSheet.tsx  # Slide-out panel for viewing lead details
+│   │   │   ├── LeadFormDialog.tsx   # Modal form for creating/editing leads
+│   │   │   ├── NavLink.tsx          # Navigation link with active state
+│   │   │   └── ProtectedRoute.tsx   # Auth guard for protected pages
+│   │   └── pages/
+│   │       ├── Home.tsx             # Public landing page
+│   │       ├── Login.tsx            # Email/password login form
+│   │       ├── Register.tsx         # New user registration form
+│   │       ├── Dashboard.tsx        # Analytics overview with charts and KPIs
+│   │       ├── Leads.tsx            # Lead list with search, filter, and CRUD
+│   │       ├── Pipeline.tsx         # Kanban-style pipeline board
+│   │       ├── FollowUps.tsx        # Upcoming follow-up tasks
+│   │       └── NotFound.tsx         # 404 error page
+│   │
+│   ├── Client/                      # 🔌 Data & State Management Layer
+│   │   ├── hooks/
+│   │   │   ├── useLeads.ts          # TanStack Query hooks for lead CRUD
+│   │   │   ├── useTheme.ts          # Dark/light mode toggle hook
+│   │   │   ├── use-mobile.tsx       # Mobile breakpoint detection
+│   │   │   └── use-toast.ts         # Toast notification hook
+│   │   ├── contexts/
+│   │   │   └── AuthContext.tsx      # React Context for authentication state
+│   │   ├── integrations/
+│   │   │   └── supabase/
+│   │   │       ├── client.ts        # Supabase client initialization
+│   │   │       └── types.ts         # Auto-generated TypeScript DB types
+│   │   └── lib/
+│   │       └── utils.ts             # Utility functions (cn helper)
+│   │
+│   ├── Backend/                     # 🗄️ Database Schema & Seed Data
+│   │   ├── migrations/              # SQL migration files (schema + RLS policies)
+│   │   ├── config.toml              # Supabase CLI configuration
+│   │   └── seed.sql                 # Sample data generator (70 leads)
+│   │
+│   ├── App.tsx                      # Root component with routing
+│   ├── App.css                      # Global styles
+│   ├── index.css                    # Tailwind CSS imports and base styles
+│   └── main.tsx                     # Application entry point
+├── .env                             # Environment variables (git-ignored)
+├── .gitignore                       # Files excluded from version control
+├── index.html                       # HTML entry point
+├── package.json                     # Dependencies and scripts
+├── tailwind.config.ts               # Tailwind CSS configuration
+├── tsconfig.json                    # TypeScript configuration
+├── vite.config.ts                   # Vite build configuration
+└── vitest.config.ts                 # Vitest test runner configuration
 ```
 
 ---

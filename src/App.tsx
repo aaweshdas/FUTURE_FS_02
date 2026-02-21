@@ -1,18 +1,18 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/Frontend/components/ui/toaster";
+import { Toaster as Sonner } from "@/Frontend/components/ui/sonner";
+import { TooltipProvider } from "@/Frontend/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Leads from "./pages/Leads";
-import Pipeline from "./pages/Pipeline";
-import FollowUps from "./pages/FollowUps";
-import NotFound from "./pages/NotFound";
+import { AuthProvider } from "@/Client/contexts/AuthContext";
+import ProtectedRoute from "@/Frontend/components/ProtectedRoute";
+import Home from "./Frontend/pages/Home";
+import Login from "./Frontend/pages/Login";
+import Register from "./Frontend/pages/Register";
+import Dashboard from "./Frontend/pages/Dashboard";
+import Leads from "./Frontend/pages/Leads";
+import Pipeline from "./Frontend/pages/Pipeline";
+import FollowUps from "./Frontend/pages/FollowUps";
+import NotFound from "./Frontend/pages/NotFound";
 
 const queryClient = new QueryClient();
 

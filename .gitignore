@@ -29,5 +29,4 @@ dist-ssr
 !.env.example
 
 # Supabase
-supabase/.temp/
-supabase/seed.sql
+src/Backend/seed.sql
